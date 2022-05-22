@@ -1,24 +1,24 @@
 package vn.mvpthinh.model;
 
 public class Category {
-    private String id;
+    private Long id;
     private String title;
     private String content;
 
     public Category() {
     }
 
-    public Category(String id, String title, String content) {
+    public Category(Long id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

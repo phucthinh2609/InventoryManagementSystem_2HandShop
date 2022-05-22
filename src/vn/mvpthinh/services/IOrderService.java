@@ -1,6 +1,7 @@
 package vn.mvpthinh.services;
 
 import vn.mvpthinh.model.Order;
+import vn.mvpthinh.model.OrderType;
 
 import java.util.List;
 
@@ -9,15 +10,45 @@ public interface IOrderService {
 
     void add(Order newOrder);
 
-    void update();
+    //void update(Order newOrder);
 
-    boolean existsByPhone(String phone);
+    //    private Long id;
+//    private Long userId;
+//    private OrderType orderType;
+//    private OrderStatus status;
+//    private Double grandTotal;
+//    private Instant createdAt;
+//    private Instant updateAt;
+//    private String content;
+//    @Override
+//    public void update(Order newOrder) {
+//        List<Order> orders = findAll();
+//        for (Order order : orders) {
+//            if (order.getId().equals(newOrder.getId())) {
+//                OrderStatus status = newOrder.getStatus();
+//                if (status != null) order.setStatus(status);
+//                Double grandTotal = newOrder.getGrandTotal();
+//                if (grandTotal != null) order.setGrandTotal(grandTotal);
+//                String content = newOrder.getContent();
+//                if (content != null && !content.isEmpty()) order.setContent(content);
+//                newOrder.setUpdateAt(Instant.now());
+//                CSVUtils.write(PATH, orders);
+//                break;
+//            }
+//            CSVUtils.write(PATH, orders);
+//        }
+//
+//    }
+    void purchaseStock(Order newOrder);
 
-    Order findById(long id);
+    Order createNewOrder(OrderType type);
 
-    List<Order> findByUserId(long id);
+    Order findById(Long id);
 
-    boolean existById(long id);
+    List<Order> findByUserId(Long id);
 
+    boolean existById(Long id);
+
+    void deleteById(Long id);
 }
 

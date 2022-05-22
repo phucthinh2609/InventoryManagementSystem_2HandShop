@@ -20,7 +20,7 @@ public class ProductView {
 
     public void add() {
         do {
-            long id = System.currentTimeMillis()/1000;
+            long id = System.currentTimeMillis() / 1000;
             String title = inputTitle(InputOption.ADD);
             String content = inputContent(InputOption.ADD);
             Product product = new Product(id, title, content);
@@ -47,7 +47,7 @@ public class ProductView {
 
             Product newProduct = new Product();
             newProduct.setId(id);
-            int choose = AppUtils.retryChoose(0,3);
+            int choose = AppUtils.retryChoose(0, 3);
             switch (choose) {
                 case 1:
                     String title = inputTitle(InputOption.UPDATE);
@@ -77,7 +77,7 @@ public class ProductView {
     public void showProduct(InputOption option) {
         System.out.println("-----------------------------------------DANH SÁCH SẢN PHẨM-------------------------------------------");
         System.out.printf("%-18s %-20s %-18s %-18s %-18s", "Id", "Tên sản phẩm", "Ngày tạo", "Ngày cập nhật", "Mô tả");
-        for (Product product : productService.findAll()){
+        for (Product product : productService.findAll()) {
             System.out.printf("\n%-18s %-20s %-18s %-18s %-18s",
                     product.getId(),
                     product.getTitle(),
@@ -93,8 +93,8 @@ public class ProductView {
     }
 
     private long inputId(InputOption option) {
-        int id;
-        switch (option){
+        Long id;
+        switch (option) {
             case ADD:
                 System.out.println("Nhập id: ");
                 break;
@@ -107,11 +107,11 @@ public class ProductView {
         }
         boolean isRetry = false;
         do {
-            id = AppUtils.retryParseInt();
+            id = AppUtils.retryParseLong();
             boolean exist = productService.existsById(id);
-            switch (option){
+            switch (option) {
                 case ADD:
-                    if (exist){
+                    if (exist) {
                         System.out.println("Id không tồn tại. Nhập lại!!!");
                     }
                     isRetry = exist;
@@ -122,12 +122,12 @@ public class ProductView {
                     isRetry = !exist;
                     break;
             }
-        }while (isRetry);
+        } while (isRetry);
         return id;
     }
 
     private String inputContent(InputOption option) {
-        switch (option){
+        switch (option) {
             case ADD:
                 System.out.println("Nhập ghi chú sản phẩm: ");
                 break;
@@ -141,7 +141,7 @@ public class ProductView {
 
 
     private String inputTitle(InputOption option) {
-        switch (option){
+        switch (option) {
             case ADD:
                 System.out.println("Nhập tên sản phẩm: ");
                 break;

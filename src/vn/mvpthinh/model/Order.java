@@ -1,53 +1,49 @@
 package vn.mvpthinh.model;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
-import javax.management.relation.Role;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
     private Long id;
-    private int userId;
-    private Type type;
-    private String status;
-    private int subTotal;
-    private int grandTotal;
+    private Long userId;
+    private OrderType orderType;
+    private OrderStatus status;
+    private double grandTotal;
     private Instant createdAt;
     private Instant updateAt;
     private String content;
+    List<OrderItem> orderItems;
 
     public Order() {
     }
 
-    public Order(Long id, int userId, Type type, String status, int subTotal, int grandTotal, Instant createdAt, Instant updateAt, String content) {
+
+    public Order(Long id, OrderType orderType) {
+        this.id = id;
+        this.orderType = orderType;
+    }
+
+    public Order(Long id, Long userId, OrderType type, OrderStatus status) {
         this.id = id;
         this.userId = userId;
-        this.type = type;
+        this.orderType = type;
         this.status = status;
-        this.subTotal = subTotal;
-        this.grandTotal = grandTotal;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
-        this.content = content;
     }
 
     public static Order parse(String record) {
         Order order = new Order();
         String[] field = record.split(",");
         order.id = Long.parseLong(field[0]);
-        order.userId = Integer.parseInt(field[1]);
-        order.type = Type.parseRole(field[2]);
-        order.status = field[3];
-        order.subTotal = Integer.parseInt(field[3]);
-        order.grandTotal = Integer.parseInt(field[4]);
+        order.userId = Long.parseLong(field[1]);
+        order.orderType = OrderType.parseOrderType(field[2]);
+        order.status = OrderStatus.parseOrderStatus(field[3]);
+        order.grandTotal = Double.parseDouble(field[4]);
         order.createdAt = Instant.parse(field[5]);
         order.updateAt = null;
         String temp = field[6];
         order.content = field[7];
 
-        if (temp != null && !temp.equals("null"))
-            order.updateAt = Instant.parse(temp);
+        if (temp != null && !temp.equals("null")) order.updateAt = Instant.parse(temp);
 
         return order;
     }
@@ -60,43 +56,43 @@ public class Order {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Type getType() {
-        return type;
+    public OrderType getType() {
+        return orderType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(OrderType orderType) {
+        this.orderType = orderType;
     }
 
-    public String getStatus() {
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
+
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
-    public int getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(int subTotal) {
-        this.subTotal = subTotal;
-    }
-
-    public int getGrandTotal() {
+    public double getGrandTotal() {
         return grandTotal;
     }
 
-    public void setGrandTotal(int grandTotal) {
+    public void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
     }
 
@@ -124,8 +120,25 @@ public class Order {
         this.content = content;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
     @Override
     public String toString() {
-        return id + "," + userId + "," + type + "," + status + "," + subTotal + "," + grandTotal + "," + createdAt + "," + updateAt + "," + content;
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s",
+                id,
+                userId,
+                orderType,
+                status,
+                grandTotal,
+                createdAt,
+                updateAt,
+                content
+        );
     }
 }

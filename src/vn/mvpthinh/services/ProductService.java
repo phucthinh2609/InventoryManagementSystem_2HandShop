@@ -5,7 +5,6 @@ import vn.mvpthinh.utils.CSVUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -72,17 +71,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findById(int id) {
+    public Product findById(Long id) {
         List<Product> products = findAll();
         for (Product product : products) {
-            if (product.getId() == id)
+            if (product.getId().equals(id))
                 return product;
         }
         return null;
     }
 
     @Override
-    public boolean exist(int id) {
+    public boolean exist(Long id) {
         return findById(id) != null;
     }
 
@@ -96,24 +95,24 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean existsById(int id) {
+    public boolean existsById(Long id) {
         List<Product> products = findAll();
         for (Product product : products) {
-            if (product.getId() == id)
+            if (product.getId().equals(id))
                 return true;
         }
         return false;
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         List<Product> products = findAll();
 
         //class vo danh
         products.removeIf(new Predicate<Product>() {
             @Override
             public boolean test(Product product) {
-                return product.getId() == id;
+                return product.getId().equals(id);
             }
         });
         CSVUtils.write(PATH, products);

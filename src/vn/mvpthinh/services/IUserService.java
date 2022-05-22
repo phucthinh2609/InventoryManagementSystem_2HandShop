@@ -1,6 +1,5 @@
 package vn.mvpthinh.services;
 
-import vn.ht.bakery.shop.model.User;
 import vn.mvpthinh.model.User;
 
 import java.util.List;
@@ -16,9 +15,7 @@ public interface IUserService {
 
     void update(User newUser);
 
-    void update(User newUser);
-
-    boolean existById(int id);
+    boolean existById(Long id);
 
     boolean existsByEmail(String email);
 
@@ -27,7 +24,7 @@ public interface IUserService {
     boolean existsByUsername(String userName);
 
 
-    User findById(int id);
+    User findById(Long id);
 
 
 

@@ -88,7 +88,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean existById(int id) {
+    public boolean existById(Long id) {
         return findById(id) != null;
     }
 
@@ -123,7 +123,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
         List<User> users = findAll();
         for (User user : users) {
             if (user.getId() == id)

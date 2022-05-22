@@ -7,8 +7,7 @@ import java.time.Instant;
 public class Product {
     private Long id;
     private String title;
-    private String summary;
-    private String type;
+
     private Instant createdAt;
     private Instant updatedAt;
     private String content;
@@ -16,11 +15,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String title, String summary, String type, Instant createdAt, Instant updatedAt, String content) {
+    public Product(Long id, String title, Instant createdAt, Instant updatedAt, String content) {
         this.id = id;
         this.title = title;
-        this.summary = summary;
-        this.type = type;
+
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.content = content;
@@ -37,16 +35,14 @@ public class Product {
         String[] field = record.split(",");
         long id = Long.parseLong(field[0]);
         String title = field[1];
-        String summary = field[2];
-        String type = null;
-        Instant createdAt = Instant.parse(field[4]);
+        Instant createdAt = Instant.parse(field[2]);
+        String temp = field[3];
+        String content = field[4];
         Instant updatedAt = null;
-        String content = field[6];
-        String temp = field[5];
         if (temp != null && !temp.equals("null"))
             updatedAt = Instant.parse(temp);
 
-        return new Product(id, title, summary, type, createdAt, updatedAt, content);
+        return new Product(id, title, createdAt, updatedAt, content);
     }
 
     public Long getId() {
@@ -63,22 +59,6 @@ public class Product {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Instant getCreatedAt() {
@@ -110,8 +90,6 @@ public class Product {
         return String.format("%s,%s,%s,%s,%s,%s,%s,",
                 id,
                 title,
-                summary,
-                type,
                 createdAt,
                 updatedAt,
                 content

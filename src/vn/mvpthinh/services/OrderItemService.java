@@ -1,21 +1,21 @@
 package vn.mvpthinh.services;
 
-import vn.mvpthinh.model.Order;
 import vn.mvpthinh.model.OrderItem;
 import vn.mvpthinh.utils.CSVUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderItemService implements IOrderItemService{
+public class OrderItemService implements IOrderItemService {
     private final static String PATH = "data/order-items.csv";
 
     private static OrderItemService instance;
 
-    private OrderItemService(){
+    private OrderItemService() {
     }
 
-    public static OrderItemService getInstance(){
+    public static OrderItemService getInstance() {
         if (instance == null)
             instance = new OrderItemService();
         return instance;
@@ -34,6 +34,7 @@ public class OrderItemService implements IOrderItemService{
     @Override
     public void add(OrderItem newOrderItem) {
         List<OrderItem> orderItems = findAll();
+        newOrderItem.setCreatedAt(Instant.now());
         orderItems.add(newOrderItem);
         CSVUtils.write(PATH, orderItems);
     }
@@ -42,14 +43,15 @@ public class OrderItemService implements IOrderItemService{
     @Override
     public void update(OrderItem newOrderItem) {
         List<OrderItem> orderItems = findAll();
+        newOrderItem.setUpdatedAt(Instant.now());
         CSVUtils.write(PATH, orderItems);
     }
 
     @Override
-    public OrderItem getOrderItemById(int id) {
+    public OrderItem getOrderItemById(Long id) {
         List<OrderItem> orderItems = findAll();
         for (OrderItem orderItem : orderItems) {
-            if (orderItem.getId() == id)
+            if (orderItem.getId().equals(id))
                 return orderItem;
         }
         return null;

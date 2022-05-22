@@ -50,6 +50,18 @@ public class AppUtils {
         return result;
     }
 
+    public static Long retryParseLong() {
+        Long result;
+        do {
+            System.out.print(" ⭆ ");
+            try {
+                result = Long.parseLong(scanner.nextLine());
+                return result;
+            } catch (Exception ex) {
+                System.out.println("Nhập sai! vui lòng nhập lại");
+            }
+        } while (true);
+    }
 
     public static double retryParseDouble() {
         double result;

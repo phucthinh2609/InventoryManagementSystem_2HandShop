@@ -4,28 +4,31 @@ import java.time.Instant;
 
 public class OrderItem {
     private Long id;
-    private String productId;
-    private int itemId;
-    private int orderId;
+    private Long productId;
+    private Long itemId;
+    private Long orderId;
     private double price;
     private int quantity;
     private Instant createdAt;
     private Instant updatedAt;
     private String content;
+    private Product product;
+    private Item item;
+    private Order order;
 
-    public OrderItem() {
-    }
 
-    public OrderItem(Long id, String productId, int itemId, int orderId, double price, int quantity, Instant createdAt, Instant updatedAt, String content) {
+    public OrderItem(Long id, Long productId, Long itemId, Long orderId, double price, int quantity, String content) {
         this.id = id;
         this.productId = productId;
         this.itemId = itemId;
         this.orderId = orderId;
         this.price = price;
         this.quantity = quantity;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.content = content;
+    }
+
+    public OrderItem() {
+
     }
 
     public static OrderItem parse(String record) {
@@ -33,19 +36,17 @@ public class OrderItem {
         OrderItem orderItem = new OrderItem();
 
         orderItem.id = Long.parseLong(filed[0]);
-        orderItem.productId = filed[1];
-        orderItem.itemId = Integer.parseInt(filed[2]);
-        orderItem.orderId = Integer.parseInt(filed[3]);
+        orderItem.productId = Long.parseLong(filed[1]);
+        orderItem.itemId = Long.parseLong(filed[2]);
+        orderItem.orderId = Long.parseLong(filed[3]);
         orderItem.price = Double.parseDouble(filed[4]);
         orderItem.quantity = Integer.parseInt(filed[5]);
-        orderItem.createdAt = Instant.parse(filed[6]);
-        orderItem.updatedAt = null;
-        String temp = filed[7];
-        orderItem.content = filed[8];
-
-        if (temp != null && !temp.equals("null"))
+        orderItem.content = filed[6];
+        orderItem.createdAt = Instant.parse(filed[7]);
+        String temp = filed[8];
+        if (temp != null && !temp.equals("null")) {
             orderItem.updatedAt = Instant.parse(temp);
-
+        }
         return orderItem;
     }
 
@@ -57,27 +58,27 @@ public class OrderItem {
         this.id = id;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public int getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 
-    public int getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -121,8 +122,43 @@ public class OrderItem {
         this.content = content;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
-        return  id + "," + productId + "," + itemId + "," + orderId + "," + price + "," + quantity + "," + createdAt + "," + updatedAt + "," + content;
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,",
+                id,
+                productId,
+                itemId,
+                orderId,
+                price,
+                quantity,
+                content,
+                createdAt,
+                updatedAt
+                );
+
     }
 }

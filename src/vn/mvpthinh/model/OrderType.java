@@ -1,12 +1,12 @@
 package vn.mvpthinh.model;
 
-public enum Type {
+public enum OrderType {
     IN ("IN"),
     OUT ("OUT");
 
     private String value;
 
-    private Type(String value) {
+    private OrderType(String value) {
         this.value = value;
     }
 
@@ -14,9 +14,9 @@ public enum Type {
         return this.value;
     }
 
-    public static Type parseRole(String value) {
-        Type[] values = values();
-        for (Type role : values) {
+    public static OrderType parseOrderType(String value) {
+        OrderType[] values = values();
+        for (OrderType role : values) {
             if (role.value.equals(value))
                 return role;
         }

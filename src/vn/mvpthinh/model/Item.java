@@ -4,32 +4,46 @@ import java.time.Instant;
 
 public class Item {
     private Long id;
-    private String productId;
-    private int orderId;
-    private String createdBy;
-    private String updatedBy;
+    private Long productId;
+    private Long orderId;
+    private String sku;
     private double price;
     private int quantity;
-    private double sold;
+    private int sold;
     private int available;
     private Instant createdAt;
     private Instant updatedAt;
+    private Long createdBy;
+    private Long updatedBy;
+
+    private Order order;
+    private Product product;
 
     public Item() {
     }
 
-    public Item(Long id, String productId, int orderId, String createdBy, String updatedBy, double price, int quantity, double sold, int available, Instant createdAt, Instant updatedAt) {
-        this.id = id;
-        this.productId = productId;
-        this.orderId = orderId;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
-        this.price = price;
-        this.quantity = quantity;
-        this.sold = sold;
-        this.available = available;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public static Item parse(String record) {
+        Item item = new Item();
+        String[] field = record.split(",");
+        item.id = Long.parseLong(field[0]);
+        item.productId = Long.parseLong(field[1]);
+        item.orderId = Long.parseLong(field[2]);
+        item.sku = field[3];
+        item.price = Double.parseDouble(field[4]);
+        item.quantity = Integer.parseInt(field[5]);
+        item.sold = Integer.parseInt(field[6]);
+        item.available = Integer.parseInt(field[7]);
+        item.createdBy = Long.parseLong(field[8]);
+        String temp = field[9];
+        if (temp != null && !temp.equals("null"))
+            item.updatedBy = Long.parseLong(temp);
+        item.createdAt = Instant.parse(field[10]);
+        item.updatedAt = null;
+        temp = field[11];
+        if (temp != null && !temp.equals("null"))
+            item.updatedAt = Instant.parse(temp);
+
+        return item;
     }
 
     public Long getId() {
@@ -40,36 +54,28 @@ public class Item {
         this.id = id;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public int getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getSku() {
+        return sku;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public double getPrice() {
@@ -88,11 +94,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public double getSold() {
+    public int getSold() {
         return sold;
     }
 
-    public void setSold(double sold) {
+    public void setSold(int sold) {
         this.sold = sold;
     }
 
@@ -120,8 +126,53 @@ public class Item {
         this.updatedAt = updatedAt;
     }
 
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
-        return  id + "," + productId + "," + orderId + "," + createdBy + "," + updatedBy + "," + price + "," + quantity + "," + sold + "," + available + "," + createdAt + "," + updatedAt;
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                id,
+                productId,
+                orderId,
+                sku,
+                price,
+                quantity,
+                sold,
+                available,
+                createdBy,
+                updatedBy,
+                createdAt,
+                updatedAt
+        );
     }
 }

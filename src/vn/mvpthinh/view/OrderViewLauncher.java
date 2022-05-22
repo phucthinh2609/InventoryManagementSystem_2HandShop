@@ -1,5 +1,6 @@
 package vn.mvpthinh.view;
 
+import vn.mvpthinh.model.OrderType;
 import vn.mvpthinh.utils.AppUtils;
 
 import java.util.InputMismatchException;
@@ -10,7 +11,7 @@ public class OrderViewLauncher {
         int choose;
         do {
             Scanner scanner = new Scanner(System.in);
-            OrderView orderView = new OrderView();
+            OrderVieww orderView = new OrderVieww();
             menuPurchaseProduct();
             try {
                 System.out.println("Chọn chức năng: ");
@@ -18,7 +19,7 @@ public class OrderViewLauncher {
                 choose = Integer.parseInt(scanner.nextLine());
                 switch (choose) {
                     case 1:
-                        orderView.add();
+                        orderView.purchaseOrder();
                         break;
                     case 2:
                         orderView.showOrder();
@@ -33,7 +34,7 @@ public class OrderViewLauncher {
             } catch (InputMismatchException ex) {
                 System.err.println("Nhập sai. Chọn lại!!!");
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
 
 
