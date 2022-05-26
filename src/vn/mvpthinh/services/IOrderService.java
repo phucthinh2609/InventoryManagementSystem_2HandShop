@@ -8,6 +8,8 @@ import java.util.List;
 public interface IOrderService {
     List<Order> findAll();
 
+    List<Order> findAllByType(OrderType type);
+
     void add(Order newOrder);
 
     //void update(Order newOrder);
@@ -50,5 +52,7 @@ public interface IOrderService {
     boolean existById(Long id);
 
     void deleteById(Long id);
+
+    void salesStock(Order order);
 }
 

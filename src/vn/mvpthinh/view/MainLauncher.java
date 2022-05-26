@@ -25,11 +25,13 @@ public class MainLauncher {
                         ProductViewLauncher.launch();
                         break;
                     case 2:
-                        OrderViewLauncher.launch();
+                        OrderViewLauncher.purchaseLaunch();
                         break;
                     case 3:
+                        OrderViewLauncher.salesLaunch();
                         break;
                     case 4:
+                        ItemViewLauncher.launch();
                         break;
                     case 0:
                         AppUtils.exit();
@@ -47,21 +49,6 @@ public class MainLauncher {
         } while (true);
     }
 
-    //    public static void mainMenu() {
-//        System.out.println("\n=================================================");
-//        System.out.println("|                  MAIN MENU                    |");
-//        System.out.println("=================================================");
-//        System.out.println("|                                               |");
-//        System.out.println("|        1. Quản lý sản phẩm                    |");
-//        System.out.println("|        2. Quản lý đơn hàng                    |");
-//        System.out.println("|        3. Quản lý kho xuất                    |");
-//        System.out.println("|        4. Quản lý tổng kho                    |");
-//        System.out.println("|                                               |");
-//        System.out.println("=================================================");
-//        System.out.println("                                         0: Thoát");
-//        System.out.println("\nChọn chức năng ");
-//        System.out.print("⭆ ");
-//    }
     public static void mainMenu() {
         System.out.println("\n=================================================");
         System.out.println("|                  MAIN MENU                    |");

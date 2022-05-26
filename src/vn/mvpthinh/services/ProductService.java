@@ -58,9 +58,9 @@ public class ProductService implements IProductService {
 //                if (price != null)
 //                    product.setPrice(price);
 //
-//                String description = newProduct.getDescription();
-//                if (description != null && !description.isEmpty())
-//                    product.setDescription(description);
+                String content = newProduct.getContent();
+                if (content != null && !content.isEmpty())
+                    product.setContent(content);
 
                 product.setUpdatedAt(Instant.now());
                 CSVUtils.write(PATH, products);

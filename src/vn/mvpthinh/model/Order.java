@@ -12,6 +12,7 @@ public class Order {
     private Instant createdAt;
     private Instant updateAt;
     private String content;
+
     List<OrderItem> orderItems;
 
     public Order() {
@@ -108,7 +109,7 @@ public class Order {
         return updateAt;
     }
 
-    public void setUpdateAt(Instant updateAt) {
+    public void setUpdatedAt(Instant updateAt) {
         this.updateAt = updateAt;
     }
 

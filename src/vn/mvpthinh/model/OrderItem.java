@@ -12,6 +12,7 @@ public class OrderItem {
     private Instant createdAt;
     private Instant updatedAt;
     private String content;
+
     private Product product;
     private Item item;
     private Order order;
@@ -29,6 +30,14 @@ public class OrderItem {
 
     public OrderItem() {
 
+    }
+
+    public OrderItem(long id, Long productId, Long itemId, Long orderId, int quantity) {
+        this.id = id;
+        this.productId = productId;
+        this.itemId = itemId;
+        this.orderId = orderId;
+        this.quantity = quantity;
     }
 
     public static OrderItem parse(String record) {

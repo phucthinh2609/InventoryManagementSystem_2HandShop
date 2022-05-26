@@ -15,12 +15,12 @@ public class AppUtils {
             try {
                 option = Integer.parseInt(scanner.nextLine());
                 if (option > max || option < min) {
-                    System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
+                    System.err.println("Chọn chức năng không đúng! Vui lòng chọn lại");
                     continue;
                 }
                 break;
             } catch (Exception ex) {
-                System.out.println("Nhập sai! vui lòng nhập lại");
+                System.err.println("Nhập sai! vui lòng nhập lại");
             }
         } while (true);
         return option;
@@ -34,7 +34,7 @@ public class AppUtils {
                 result = Integer.parseInt(scanner.nextLine());
                 return result;
             } catch (Exception ex) {
-                System.out.println("Nhập sai! vui lòng nhập lại");
+                System.err.println("Nhập sai! vui lòng nhập lại");
             }
         } while (true);
     }
@@ -44,7 +44,7 @@ public class AppUtils {
         String result;
         System.out.print(" ⭆ ");
         while ((result = scanner.nextLine()).isEmpty()) {
-            System.out.printf("%s không được để trống\n", fieldName);
+            System.err.printf("%s không được để trống\n", fieldName);
             System.out.print(" ⭆ ");
         }
         return result;
@@ -58,7 +58,7 @@ public class AppUtils {
                 result = Long.parseLong(scanner.nextLine());
                 return result;
             } catch (Exception ex) {
-                System.out.println("Nhập sai! vui lòng nhập lại");
+                System.err.println("Nhập sai! vui lòng nhập lại");
             }
         } while (true);
     }
@@ -71,7 +71,7 @@ public class AppUtils {
                 result = Double.parseDouble(scanner.nextLine());
                 return result;
             } catch (Exception ex) {
-                System.out.println("Nhập sai! vui lòng nhập lại");
+                System.err.println("Nhập sai! vui lòng nhập lại");
             }
         } while (true);
     }
@@ -99,6 +99,9 @@ public class AppUtils {
                 case SHOW:
                     System.out.println("Nhấn 'q' để trở lại \t|\t 't' để thoát chương trình");
                     break;
+                case CONFIRM:
+                    System.out.println("Nhấn 'y' để hoàn tất \t|\t 'q' để huỷ");
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + inputOption);
             }
@@ -114,7 +117,7 @@ public class AppUtils {
                     exit();
                     break;
                 default:
-                    System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
+                    System.err.println("Chọn chức năng không đúng! Vui lòng chọn lại");
                     break;
             }
         } while (true);

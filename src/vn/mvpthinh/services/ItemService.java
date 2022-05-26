@@ -1,7 +1,6 @@
 package vn.mvpthinh.services;
 
 import vn.mvpthinh.model.Item;
-import vn.mvpthinh.model.User;
 import vn.mvpthinh.utils.CSVUtils;
 
 import java.time.Instant;
@@ -18,7 +17,8 @@ public class ItemService implements IItemService {
     }
 
     public static ItemService getInstance() {
-        if (instance == null) instance = new ItemService();
+        if (instance == null)
+            instance = new ItemService();
         return instance;
     }
 
@@ -48,7 +48,32 @@ public class ItemService implements IItemService {
         newItem.setUpdatedBy(userService.getCurrentUser().getId());
         newItem.setUpdatedAt(Instant.now());
         for (Item item : items) {
+            if (item.getId().equals(newItem.getId())){
 
+                Integer quantity = newItem.getQuantity();
+                if (quantity != null)
+                    item.setQuantity(quantity);
+
+                Double price = newItem.getPrice();
+                if (price != null)
+                    item.setPrice(price);
+
+                Integer available = newItem.getAvailable();
+                if (available != null)
+                    item.setAvailable(available);
+
+//                String description = newItem.getDescription();
+//                if (description != null && !description.isEmpty())
+//                    item.setDescription(description);
+
+                Integer sold = newItem.getSold();
+                if (sold != null)
+                    item.setSold(sold);
+
+                item.setUpdatedAt(Instant.now());
+                CSVUtils.write(PATH, items);
+                break;
+            }
         }
     }
 
@@ -58,7 +83,14 @@ public class ItemService implements IItemService {
         item.setAvailable(item.getAvailable() + quantity);
         item.setQuantity(item.getQuantity() + quantity);
         update(item);
+    }
 
+    @Override
+    public void updateItemPrice(Long itemId, double price) {
+        Item item = findById(itemId);
+        if (item.getPrice() != price)
+            item.setPrice(price);
+        update(item);
     }
 
     @Override
@@ -72,7 +104,7 @@ public class ItemService implements IItemService {
     }
 
     @Override
-    public List<Item> findByProductId(Long productId) {
+    public List<Item> findProductById(Long productId) {
         List<Item> items = findAll();
         List<Item> newItems = new ArrayList<>();
         for (Item item : items) {
@@ -92,6 +124,16 @@ public class ItemService implements IItemService {
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public void updateItemSold(Long itemId, int sold) {
+        Item item = findById(itemId);
+//        if(item==null)
+           // throw new NotFoundException("")
+        item.setSold(item.getSold()+sold);
+        item.setAvailable(item.getAvailable() - sold);
+        update(item);
     }
 
 }

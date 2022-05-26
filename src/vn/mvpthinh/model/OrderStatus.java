@@ -2,12 +2,12 @@ package vn.mvpthinh.model;
 
 public enum OrderStatus {
     NEW ("NEW"),
-    CHECKOUT ("CHECKOUT"),
+    BILLED ("BILLED"),
     PAID ("PAID"),
     FAILED ("FAILED"),
     SHIPPED ("SHIPPED"),
     DELIVERED ("DELIVERED"),
-    RETURNED ("RETURNED"),
+//    RETURNED ("RETURNED"),
     COMPLETE ("COMPLETE");
 
 

@@ -32,6 +32,16 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
+    public OrderItem findById(Long id) {
+        List<OrderItem> orders = findAll();
+        for (OrderItem orderItem : orders) {
+            if (orderItem.getId().equals(id))
+                return orderItem;
+        }
+        return null;
+    }
+
+    @Override
     public void add(OrderItem newOrderItem) {
         List<OrderItem> orderItems = findAll();
         newOrderItem.setCreatedAt(Instant.now());
@@ -55,5 +65,15 @@ public class OrderItemService implements IOrderItemService {
                 return orderItem;
         }
         return null;
+    }
+
+    @Override
+    public List<OrderItem> findByOrderId(Long orderId) {
+        List<OrderItem> newOrderItems = new ArrayList<>();
+        for (OrderItem orderItem : findAll()) {
+            if (orderItem.getOrderId().equals(orderId))
+                newOrderItems.add(orderItem);
+        }
+        return newOrderItems;
     }
 }

@@ -87,7 +87,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
                     user.getUpdatedAt() == null ? "" : InstantUtils.instantToString(user.getUpdatedAt())
             );
         }
-        System.out.println("-----------------------------------------------------------------------------------------------------  ");
+        System.out.println("\n-----------------------------------------------------------------------------------------------------  ");
         if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
     }
 

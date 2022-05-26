@@ -1,5 +1,7 @@
 package vn.mvpthinh.model;
 
+import vn.mvpthinh.utils.ValidateUtils;
+
 import java.time.Instant;
 
 public class Item {

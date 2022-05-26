@@ -1,7 +1,6 @@
 package vn.mvpthinh.services;
 
 import vn.mvpthinh.model.Item;
-import vn.mvpthinh.model.Product;
 
 import java.util.List;
 
@@ -14,12 +13,15 @@ public interface IItemService {
 
     void increaseItemAvailable(Long itemId, int quantity);
 
+    void updateItemPrice(Long itemId, double price);
+
     Item findById(Long id);
 
-    List<Item> findByProductId(Long id);
+    List<Item> findProductById(Long id);
 
     boolean existsById(Long id);
 
     void deleteById(Long id);
 
+    void updateItemSold(Long itemId, int sold);
 }

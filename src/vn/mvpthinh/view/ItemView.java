@@ -1,6 +1,7 @@
 package vn.mvpthinh.view;
 
 import vn.mvpthinh.model.Item;
+import vn.mvpthinh.model.Order;
 import vn.mvpthinh.model.Product;
 import vn.mvpthinh.services.IItemService;
 import vn.mvpthinh.services.IProductService;
@@ -9,6 +10,7 @@ import vn.mvpthinh.services.ProductService;
 import vn.mvpthinh.utils.AppUtils;
 import vn.mvpthinh.utils.InstantUtils;
 
+import java.time.Instant;
 import java.util.Scanner;
 
 public class ItemView {
@@ -22,40 +24,17 @@ public class ItemView {
         productService = ProductService.getInstance();
     }
 
-
-//    public void add() {
-//        do {
-//            long id = System.currentTimeMillis() / 1000;
-//            String title = inputTitle(InputOption.ADD);
-//            String content = inputContent(InputOption.ADD);
-//            Product product = new Product(id, title, content);
-//            itemService.add(product);
-//            System.out.println("Thêm sản phẩm thành công!!!");
-//
-//        } while (AppUtils.isRetry(InputOption.ADD));
-//    }
-//
-//    private Long id;
-//    private Long productId;
-//    private Long orderId;
-//    private double price;
-//    private int quantity;
-//    private int sold;
-//    private int available;
-//    private Instant createdAt;
-//    private Instant updatedAt;
-//    private Long createdBy;
-//    private Long updatedBy;
-
     public void showItems(InputOption option) {
-        System.out.println("-----------------------------------------DANH SÁCH HÀNG Hoá-------------------------------------------");
-        System.out.printf("%-18s %-20s %-18s %-18s %-18s %-18s", "Id", "Tên sản phẩm", "SKU", "Ngày tạo", "Ngày cập nhật", "Mô tả");
+        System.out.println("-----------------------------------------DANH SÁCH HÀNG HOÁ-------------------------------------------");
+        System.out.printf("%-18s %-20s %-18s %-15s %-10s %-18s %-18s", "Id", "Tên sản phẩm", "SKU", "Giá", "Số lượng", "Ngày tạo", "Ngày cập nhật");
         for (Item item : itemService.findAll()) {
             Product product = productService.findById(item.getProductId());
-            System.out.printf("\n%-18s %-20s %-18s %-18s %-18s",
+            System.out.printf("\n%-18s %-20s %-18s %-15s %-10s %-18s %-18s",
                     item.getId(),
                     product.getTitle(),
                     item.getSku(),
+                    AppUtils.doubleToVND(item.getPrice()),
+                    item.getQuantity(),
                     InstantUtils.instantToString(item.getCreatedAt()),
                     item.getUpdatedAt() == null ? "" : InstantUtils.instantToString(item.getUpdatedAt())
             );
@@ -66,10 +45,31 @@ public class ItemView {
             AppUtils.isRetry(InputOption.SHOW);
     }
 
+    public void showSummaryItems(InputOption option) {
+        System.out.println("-----------------------------------------DANH SÁCH HÀNG Hoá-------------------------------------------");
+        System.out.printf("%-18s %-20s %-18s %-18s %-10s %-10s", "Id", "Tên sản phẩm", "SKU", "Tổng lượng", "Đã bán", "Lượng còn lại");
+        for (Item item : itemService.findAll()) {
+            Product product = productService.findById(item.getProductId());
+            System.out.printf("\n%-18s %-20s %-18s %-18s %-10s %-10s",
+                    item.getId(),
+                    product.getTitle(),
+                    item.getSku(),
+                    item.getQuantity(),
+                    item.getSold(),
+                    item.getAvailable()
+            );
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------\n");
+
+        if (option == InputOption.SHOW)
+            AppUtils.isRetry(InputOption.SHOW);
+    }
+
+
     public void showItemsByProductId(InputOption option, Long productId) {
         System.out.println("-----------------------------------------DANH SÁCH HÀNG Hoá-------------------------------------------");
         System.out.printf("%-18s %-20s %-18s %-18s %-18s %-18s", "Id", "Tên sản phẩm", "SKU", "Ngày tạo", "Ngày cập nhật", "Mô tả");
-        for (Item item : itemService.findByProductId(productId)) {
+        for (Item item : itemService.findProductById(productId)) {
             Product product = productService.findById(item.getProductId());
             System.out.printf("\n%-18s %-20s %-18s %-18s %-18s",
                     item.getId(),
@@ -79,7 +79,27 @@ public class ItemView {
                     item.getUpdatedAt() == null ? "" : InstantUtils.instantToString(item.getUpdatedAt())
             );
         }
-        System.out.println("--------------------------------------------------------------------------------------------------\n");
+        System.out.println("\n--------------------------------------------------------------------------------------------------\n");
+
+        if (option == InputOption.SHOW)
+            AppUtils.isRetry(InputOption.SHOW);
+    }
+
+    public void showSalesItemsByProductId(InputOption option, Long productId) {
+        System.out.println("-----------------------------------------DANH SÁCH HÀNG Hoá-------------------------------------------");
+        System.out.printf("%-18s %-20s %-18s %-18s %-18s %-18s", "Id", "Tên sản phẩm", "SKU", "Giá", "Số lượng", "Mô tả");
+        for (Item item : itemService.findProductById(productId)) {
+            Product product = productService.findById(item.getProductId());
+            System.out.printf("\n%-18s %-20s %-18s %-18s %-18s %-18s",
+                    item.getId(),
+                    product.getTitle(),
+                    item.getSku(),
+                    AppUtils.doubleToVND(item.getPrice()),
+                    item.getAvailable(),
+                    product.getContent()
+            );
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------\n");
 
         if (option == InputOption.SHOW)
             AppUtils.isRetry(InputOption.SHOW);
@@ -105,13 +125,13 @@ public class ItemView {
             switch (option) {
                 case ADD:
                     if (exist) {
-                        System.out.println("Id không tồn tại. Nhập lại!!!");
+                        System.err.println("Id không tồn tại. Nhập lại!!!");
                     }
                     isRetry = exist;
                     break;
                 case UPDATE:
                     if (!exist)
-                        System.out.println("Không tìm thấy id. Nhập lại!!!");
+                        System.err.println("Không tìm thấy id. Nhập lại!!!");
                     isRetry = !exist;
                     break;
             }
@@ -142,7 +162,7 @@ public class ItemView {
                 System.out.println("Nhập tên sản phẩm muốn sửa: ");
                 break;
         }
-        System.out.print("==> ");
+        System.out.print(" ⭆ ");
         return scanner.nextLine();
     }
 }

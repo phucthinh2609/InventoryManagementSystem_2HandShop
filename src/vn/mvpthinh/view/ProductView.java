@@ -86,7 +86,7 @@ public class ProductView {
                     product.getContent()
             );
         }
-        System.out.println("--------------------------------------------------------------------------------------------------\n");
+        System.out.println("\n--------------------------------------------------------------------------------------------------\n");
 
         if (option == InputOption.SHOW)
             AppUtils.isRetry(InputOption.SHOW);
@@ -112,13 +112,13 @@ public class ProductView {
             switch (option) {
                 case ADD:
                     if (exist) {
-                        System.out.println("Id không tồn tại. Nhập lại!!!");
+                        System.err.println("Id không tồn tại. Nhập lại!!!");
                     }
                     isRetry = exist;
                     break;
                 case UPDATE:
                     if (!exist)
-                        System.out.println("Không tìm thấy id. Nhập lại!!!");
+                        System.err.println("Không tìm thấy id. Nhập lại!!!");
                     isRetry = !exist;
                     break;
             }
@@ -135,7 +135,7 @@ public class ProductView {
                 System.out.println("Nhập ghi chú sản phẩm muốn sửa: ");
                 break;
         }
-        System.out.print("==> ");
+        System.out.print("⭆ ");
         return scanner.nextLine();
     }
 
@@ -149,7 +149,8 @@ public class ProductView {
                 System.out.println("Nhập tên sản phẩm muốn sửa: ");
                 break;
         }
-        System.out.print("==> ");
+        System.out.print("⭆ ");
+
         return scanner.nextLine();
     }
 }
