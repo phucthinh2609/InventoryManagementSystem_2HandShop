@@ -1,5 +1,6 @@
 # InventoryManagementSystem_2HandShop
 
+*Link slide: https://1drv.ms/p/s!Avuu8-iR0ljAhiHCBYfKbfGHUMBV?e=VXxiTA*
 
 ## Giới thiệu
 
