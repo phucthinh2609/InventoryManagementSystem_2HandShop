@@ -20,16 +20,16 @@
  * Tránh rủi ro thiếu hụt hoặc mất kiểm soát số lượng nhập, xuất hàng
 
 ## Những kiến thức đã áp dụng
-  - Loops
-	- OOP
-	- Implement Interface
-	- Collection
-	- Exception
-	- Read & Write File Text (.csv)
-	- Regex
-	- CreaEtion Design Pattern - Singleton
+- Loops
+- OOP
+- Implement Interface
+- Collection
+- Exception
+- Read & Write File Text (.csv)
+- Regex
+- CreaEtion Design Pattern - Singleton
 
 ## Những vấn đề cần khắc phục
-  - Chưa kiểm soát được status trên Order
-	- Thiếu số ghi nợ trong xuất hàng
-	- Chưa phân chia chi tiết loại mặt hàng (size, màu,..)
+- Chưa kiểm soát được status trên Order
+- Thiếu số ghi nợ trong xuất hàng
+- Chưa phân chia chi tiết loại mặt hàng (size, màu,..)
