@@ -5,7 +5,7 @@
 
 *Kho hàng là không gian trống, được sử dụng nhằm mục đích bảo quản, lưu trữ các loại hàng hoá khác nhau phục vụ mục đích sản xuất và kinh doanh.*
 	
-- Việc xây dựng kho hàng giúp:
+*Việc xây dựng kho hàng giúp:
 + Doanh thu tăng (tăng doanh số bán hàng)
 + Tăng tính minh bạch thông tin
 + Thời gian thực hiện ngắn hơn
